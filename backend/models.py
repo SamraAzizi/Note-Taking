@@ -32,3 +32,18 @@ class Note(db.Model):
     # Relationship with tags
     tags = db.relationship('NoteTag', backref='note', lazy=True, cascade='all, delete-orphan')
     
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'title': self.title,
+            'content': self.content,
+            'notebookId': self.notebook_id,
+            'starred': self.starred,
+            'created': self.created.isoformat(),
+            'updated': self.updated.isoformat(),
+            'tags': [tag.tag_name for tag in self.tags]
+        }
+
+
+class Tag(db.Model):
+    __tablename__ = 'tags'
