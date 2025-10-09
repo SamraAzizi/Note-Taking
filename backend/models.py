@@ -47,3 +47,17 @@ class Note(db.Model):
 
 class Tag(db.Model):
     __tablename__ = 'tags'
+
+    class Tag(db.Model):
+    __tablename__ = 'tags'
+    
+    id = db.Column(db.String(50), primary_key=True)
+    color = db.Column(db.String(20), default='#8b5cf6')
+    
+    def to_dict(self):
+        # Count notes with this tag
+        count = NoteTag.query.filter_by(tag_name=self.id).count()
+        return {
+            'id': self.id,
+            'color': self.color,
+            'count': count
