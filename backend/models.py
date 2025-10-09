@@ -9,6 +9,7 @@ class Notebook(db.Model):
     color = db.Column(db.String(20), default='#3b82f6')
     created = db.Column(db.DateTime, default=datetime.utcnow)
     notes = db.relationship('Note', backref='notebook', lazy=True, cascade='all, delete-orphan')
+    
     def to_dict(self):
         return {
             'id': self.id,
@@ -21,6 +22,7 @@ class Notebook(db.Model):
 
 class Note(db.Model):
     __tablename__ = 'notes'
+    
     id = db.Column(db.String(50), primary_key=True)
     title = db.Column(db.String(200), nullable=False)
     content = db.Column(db.Text, default='')
@@ -47,9 +49,6 @@ class Note(db.Model):
 
 class Tag(db.Model):
     __tablename__ = 'tags'
-
-    class Tag(db.Model):
-    __tablename__ = 'tags'
     
     id = db.Column(db.String(50), primary_key=True)
     color = db.Column(db.String(20), default='#8b5cf6')
@@ -61,3 +60,12 @@ class Tag(db.Model):
             'id': self.id,
             'color': self.color,
             'count': count
+        }
+
+
+class NoteTag(db.Model):
+    __tablename__ = 'note_tags'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    note_id = db.Column(db.String(50), db.ForeignKey('notes.id'), nullable=False)
+    tag_name = db.Column(db.String(50), db.ForeignKey('tags.id'), nullable=False)
