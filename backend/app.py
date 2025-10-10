@@ -58,3 +58,24 @@ def get_notes():
 def get_note(note_id):
     note = Note.query.get_or_404(note_id)
     return jsonify(note.to_dict())
+
+@app.route('/api/notes', methods=['POST'])
+def create_note():
+    data = request.json
+    note = Note(
+        id=data['id'],
+        title=data['title'],
+        content=data.get('content', ''),
+        notebook_id=data['notebookId'],
+        starred=data.get('starred', False)
+    )
+    db.session.add(note)
+    
+    # Add tags if provided
+    if 'tags' in data:
+        for tag_name in data['tags']:
+            # Create tag if it doesn't exist
+            tag = Tag.query.get(tag_name)
+            if not tag:
+                tag = Tag(id=tag_name)
+                db.session.add(tag)
