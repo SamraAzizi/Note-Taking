@@ -96,3 +96,35 @@ def update_note(note_id):
     note.content = data.get('content', note.content)
     note.starred = data.get('starred', note.starred)
     note.updated = datetime.utcnow()
+
+    # Update tags
+    if 'tags' in data:
+        # Remove old tags
+        NoteTag.query.filter_by(note_id=note_id).delete()
+        
+        # Add new tags
+        for tag_name in data['tags']:
+            tag = Tag.query.get(tag_name)
+            if not tag:
+                tag = Tag(id=tag_name)
+                db.session.add(tag)
+            
+            note_tag = NoteTag(note_id=note.id, tag_name=tag_name)
+            db.session.add(note_tag)
+    
+    db.session.commit()
+    return jsonify(note.to_dict())
+
+@app.route('/api/notes/<note_id>', methods=['DELETE'])
+def delete_note(note_id):
+    note = Note.query.get_or_404(note_id)
+    db.session.delete(note)
+    db.session.commit()
+    return '', 204
+
+@app.route('/api/notes/<note_id>/star', methods=['POST'])
+def toggle_star(note_id):
+    note = Note.query.get_or_404(note_id)
+    note.starred = not note.starred
+    db.session.commit()
+    return jsonify(note.to_dict())
