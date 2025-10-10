@@ -11,3 +11,18 @@ app.config['SECRET_KEY'] = 'your-secret-key-here'
 
 CORS(app)
 init_db(app)
+# ==================== NOTEBOOKS ====================
+
+@app.route('/api/notebooks', methods=['GET'])
+def get_notebooks():
+    notebooks = Notebook.query.all()
+    return jsonify([nb.to_dict() for nb in notebooks])
+
+@app.route('/api/notebooks', methods=['POST'])
+def create_notebook():
+    data = request.json
+    notebook = Notebook(
+        id=data['id'],
+        name=data['name'],
+        color=data.get('color', '#3b82f6')
+    )
