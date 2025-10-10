@@ -26,3 +26,16 @@ def create_notebook():
         name=data['name'],
         color=data.get('color', '#3b82f6')
     )
+
+    db.session.add(notebook)
+    db.session.commit()
+    return jsonify(notebook.to_dict()), 201
+
+@app.route('/api/notebooks/<notebook_id>', methods=['PUT'])
+def update_notebook(notebook_id):
+    notebook = Notebook.query.get_or_404(notebook_id)
+    data = request.json
+    notebook.name = data.get('name', notebook.name)
+    notebook.color = data.get('color', notebook.color)
+    db.session.commit()
+    return jsonify(notebook.to_dict())
