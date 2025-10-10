@@ -46,3 +46,15 @@ def delete_notebook(notebook_id):
     db.session.delete(notebook)
     db.session.commit()
     return '', 204
+
+# ==================== NOTES ====================
+
+@app.route('/api/notes', methods=['GET'])
+def get_notes():
+    notes = Note.query.order_by(Note.updated.desc()).all()
+    return jsonify([note.to_dict() for note in notes])
+
+@app.route('/api/notes/<note_id>', methods=['GET'])
+def get_note(note_id):
+    note = Note.query.get_or_404(note_id)
+    return jsonify(note.to_dict())
