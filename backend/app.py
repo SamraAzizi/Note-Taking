@@ -39,3 +39,10 @@ def update_notebook(notebook_id):
     notebook.color = data.get('color', notebook.color)
     db.session.commit()
     return jsonify(notebook.to_dict())
+
+@app.route('/api/notebooks/<notebook_id>', methods=['DELETE'])
+def delete_notebook(notebook_id):
+    notebook = Notebook.query.get_or_404(notebook_id)
+    db.session.delete(notebook)
+    db.session.commit()
+    return '', 204
