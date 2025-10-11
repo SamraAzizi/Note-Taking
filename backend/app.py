@@ -128,3 +128,18 @@ def toggle_star(note_id):
     note.starred = not note.starred
     db.session.commit()
     return jsonify(note.to_dict())
+
+# ==================== TAGS ====================
+
+@app.route('/api/tags', methods=['GET'])
+def get_tags():
+    tags = Tag.query.all()
+    return jsonify([tag.to_dict() for tag in tags])
+
+@app.route('/api/tags', methods=['POST'])
+def create_tag():
+    data = request.json
+    tag = Tag(
+        id=data['id'],
+        color=data.get('color', '#8b5cf6')
+    )
