@@ -177,3 +177,13 @@ def search_notes():
     
     notes = notes_query.order_by(Note.updated.desc()).all()
     return jsonify([note.to_dict() for note in notes])
+
+# ==================== STATISTICS ====================
+
+@app.route('/api/stats', methods=['GET'])
+def get_stats():
+    total_notebooks = Notebook.query.count()
+    total_notes = Note.query.count()
+    starred_notes = Note.query.filter_by(starred=True).count()
+    total_tags = Tag.query.count()
+    
