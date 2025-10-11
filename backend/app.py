@@ -143,3 +143,13 @@ def create_tag():
         id=data['id'],
         color=data.get('color', '#8b5cf6')
     )
+
+    db.session.add(tag)
+    db.session.commit()
+    return jsonify(tag.to_dict()), 201
+
+# ==================== SEARCH ====================
+
+@app.route('/api/search', methods=['GET'])
+def search_notes():
+    query = request.args.get('q', '')
