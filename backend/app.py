@@ -165,3 +165,15 @@ def search_notes():
             (Note.title.ilike(f'%{query}%')) | 
             (Note.content.ilike(f'%{query}%'))
         )
+
+        # Filter by notebook
+    if notebook_id:
+        notes_query = notes_query.filter_by(notebook_id=notebook_id)
+    
+    # Filter by tags
+    if tag_names:
+        for tag_name in tag_names:
+            notes_query = notes_query.join(NoteTag).filter(NoteTag.tag_name == tag_name)
+    
+    notes = notes_query.order_by(Note.updated.desc()).all()
+    return jsonify([note.to_dict() for note in notes])
