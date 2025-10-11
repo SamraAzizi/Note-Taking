@@ -186,4 +186,13 @@ def get_stats():
     total_notes = Note.query.count()
     starred_notes = Note.query.filter_by(starred=True).count()
     total_tags = Tag.query.count()
+
+    return jsonify({
+        'totalNotebooks': total_notebooks,
+        'totalNotes': total_notes,
+        'starredNotes': starred_notes,
+        'totalTags': total_tags
+    })
+
+# ==================== ERROR HANDLERS ====================
     
