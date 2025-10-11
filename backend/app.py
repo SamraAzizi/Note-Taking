@@ -153,3 +153,15 @@ def create_tag():
 @app.route('/api/search', methods=['GET'])
 def search_notes():
     query = request.args.get('q', '')
+
+    notebook_id = request.args.get('notebook')
+    tag_names = request.args.getlist('tags')
+    
+    notes_query = Note.query
+    
+    # Search in title and content
+    if query:
+        notes_query = notes_query.filter(
+            (Note.title.ilike(f'%{query}%')) | 
+            (Note.content.ilike(f'%{query}%'))
+        )
