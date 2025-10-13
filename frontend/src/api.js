@@ -62,3 +62,16 @@ export const updateNote = async (id, note) => {
 export const deleteNote = async (id) => {
   await fetch(`${API_URL}/notes/${id}`, { method: 'DELETE' });
 };
+
+export const toggleNoteStar = async (id) => {
+  const response = await fetch(`${API_URL}/notes/${id}/star`, {
+    method: 'POST'
+  });
+  return response.json();
+};
+
+// Tags
+export const fetchTags = async () => {
+  const response = await fetch(`${API_URL}/tags`);
+  return response.json();
+};
