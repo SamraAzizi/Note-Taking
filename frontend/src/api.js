@@ -14,3 +14,17 @@ export const createNotebook = async (notebook) => {
   });
   return response.json();
 };
+
+
+export const updateNotebook = async (id, notebook) => {
+  const response = await fetch(`${API_URL}/notebooks/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(notebook)
+  });
+  return response.json();
+};
+
+export const deleteNotebook = async (id) => {
+  await fetch(`${API_URL}/notebooks/${id}`, { method: 'DELETE' });
+};
