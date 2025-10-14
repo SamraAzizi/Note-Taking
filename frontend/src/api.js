@@ -15,7 +15,6 @@ export const createNotebook = async (notebook) => {
   return response.json();
 };
 
-
 export const updateNotebook = async (id, notebook) => {
   const response = await fetch(`${API_URL}/notebooks/${id}`, {
     method: 'PUT',
@@ -28,7 +27,6 @@ export const updateNotebook = async (id, notebook) => {
 export const deleteNotebook = async (id) => {
   await fetch(`${API_URL}/notebooks/${id}`, { method: 'DELETE' });
 };
-
 
 // Notes
 export const fetchNotes = async () => {
@@ -76,20 +74,12 @@ export const fetchTags = async () => {
   return response.json();
 };
 
-
-// Tags
-export const fetchTags = async () => {
-  const response = await fetch(`${API_URL}/tags`);
-  return response.json();
-};
-
 export const createTag = async (tag) => {
   const response = await fetch(`${API_URL}/tags`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(tag)
   });
-
   return response.json();
 };
 
@@ -99,3 +89,13 @@ export const searchNotes = async (query, notebookId, tags) => {
   if (query) params.append('q', query);
   if (notebookId) params.append('notebook', notebookId);
   tags.forEach(tag => params.append('tags', tag));
+  
+  const response = await fetch(`${API_URL}/search?${params}`);
+  return response.json();
+};
+
+// Stats
+export const fetchStats = async () => {
+  const response = await fetch(`${API_URL}/stats`);
+  return response.json();
+};
