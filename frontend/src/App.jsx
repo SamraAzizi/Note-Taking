@@ -21,3 +21,20 @@ const loadData = async () => {
     console.error('Error loading data:', error);
   }
 };
+
+
+
+// Update createNotebook function:
+const createNotebook = async () => {
+  if (!newNotebookName.trim()) {
+    alert('Please enter a notebook name');
+    return;
+  }
+  
+  const newNotebook = {
+    id: 'nb_' + Date.now(),
+    name: newNotebookName.trim(),
+    color: newNotebookColor,
+    created: new Date().toISOString(),
+    notes: []
+  };
