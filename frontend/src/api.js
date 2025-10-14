@@ -89,3 +89,13 @@ export const createTag = async (tag) => {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(tag)
   });
+
+  return response.json();
+};
+
+// Search
+export const searchNotes = async (query, notebookId, tags) => {
+  const params = new URLSearchParams();
+  if (query) params.append('q', query);
+  if (notebookId) params.append('notebook', notebookId);
+  tags.forEach(tag => params.append('tags', tag));
