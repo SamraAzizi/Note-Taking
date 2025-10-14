@@ -75,3 +75,17 @@ export const fetchTags = async () => {
   const response = await fetch(`${API_URL}/tags`);
   return response.json();
 };
+
+
+// Tags
+export const fetchTags = async () => {
+  const response = await fetch(`${API_URL}/tags`);
+  return response.json();
+};
+
+export const createTag = async (tag) => {
+  const response = await fetch(`${API_URL}/tags`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(tag)
+  });
