@@ -10,3 +10,14 @@ const loadData = async () => {
       fetchNotes(),
       fetchTags()
     ]);
+    setNotebooks(notebooksData);
+    setNotes(notesData);
+    setTags(tagsData);
+    
+    if (notebooksData.length > 0) {
+      setCurrentNotebook(notebooksData[0]);
+    }
+  } catch (error) {
+    console.error('Error loading data:', error);
+  }
+};
