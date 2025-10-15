@@ -13,6 +13,19 @@ CORS(app)
 init_db(app)
 # ==================== NOTEBOOKS ====================
 
+@app.route('/')
+def home():
+    return jsonify({
+        "message": "Notes API is running!",
+        "endpoints": {
+            "notebooks": "/api/notebooks",
+            "notes": "/api/notes", 
+            "tags": "/api/tags",
+            "search": "/api/search",
+            "stats": "/api/stats"
+        }
+    })
+
 @app.route('/api/notebooks', methods=['GET'])
 def get_notebooks():
     notebooks = Notebook.query.all()
@@ -206,5 +219,69 @@ def internal_error(error):
     db.session.rollback()
     return jsonify({'error': 'Internal server error'}), 500
 
+
+def create_sample_data():
+    """Create sample data if database is empty"""
+    if Notebook.query.count() == 0:
+        print("Creating sample data...")
+        
+        # Create notebooks
+        notebook1 = Notebook(id="notebook-1", name="Personal Notes", color="#3b82f6")
+        notebook2 = Notebook(id="notebook-2", name="Work Notes", color="#ef4444")
+        notebook3 = Notebook(id="notebook-3", name="Ideas", color="#10b981")
+        
+        db.session.add_all([notebook1, notebook2, notebook3])
+        
+        # Create notes
+        note1 = Note(
+            id="note-1",
+            title="Welcome to Notes App",
+            content="This is your first note. You can edit, delete, or organize notes into notebooks.",
+            notebook_id="notebook-1",
+            starred=True
+        )
+        
+        note2 = Note(
+            id="note-2",
+            title="Meeting Agenda",
+            content="1. Project updates\n2. Timeline review\n3. Next steps",
+            notebook_id="notebook-2"
+        )
+        
+        note3 = Note(
+            id="note-3", 
+            title="Shopping List",
+            content="- Milk\n- Eggs\n- Bread\n- Coffee",
+            notebook_id="notebook-1"
+        )
+        
+        db.session.add_all([note1, note2, note3])
+        
+        # Create tags
+        tags = [
+            Tag(id="important", color="#dc2626"),
+            Tag(id="personal", color="#2563eb"), 
+            Tag(id="work", color="#ea580c"),
+            Tag(id="ideas", color="#16a34a")
+        ]
+        db.session.add_all(tags)
+        
+        # Associate tags with notes
+        note_tags = [
+            NoteTag(note_id="note-1", tag_name="important"),
+            NoteTag(note_id="note-1", tag_name="personal"),
+            NoteTag(note_id="note-2", tag_name="work"),
+            NoteTag(note_id="note-2", tag_name="important"),
+            NoteTag(note_id="note-3", tag_name="personal")
+        ]
+        db.session.add_all(note_tags)
+        
+        db.session.commit()
+        print("Sample data created successfully!")
+
+if __name__ == '__main__':
+    with app.app_context():
+        create_sample_data()
+    app.run(debug=True, port=5000)
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
