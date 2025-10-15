@@ -10,6 +10,7 @@ const loadData = async () => {
       fetchNotes(),
       fetchTags()
     ]);
+    
     setNotebooks(notebooksData);
     setNotes(notesData);
     setTags(tagsData);
@@ -21,8 +22,6 @@ const loadData = async () => {
     console.error('Error loading data:', error);
   }
 };
-
-
 
 // Update createNotebook function:
 const createNotebook = async () => {
@@ -38,3 +37,15 @@ const createNotebook = async () => {
     created: new Date().toISOString(),
     notes: []
   };
+  
+  try {
+    await createNotebook(newNotebook);
+    await loadData();
+    setShowNotebookModal(false);
+    setNewNotebookName('');
+    setNewNotebookColor('#3b82f6');
+  } catch (error) {
+    console.error('Error creating notebook:', error);
+  }
+};
+
