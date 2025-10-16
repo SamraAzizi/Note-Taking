@@ -105,3 +105,26 @@ function App() {
     try {
       await axios.post(`${API_BASE}/notes/${noteId}/star`);
       fetchAllData();
+      } catch (error) {
+      console.error('Error toggling star:', error);
+    }
+  };
+
+  // NOTEBOOK FUNCTIONS
+  const createNotebook = async (e) => {
+    e.preventDefault();
+    try {
+      const newNotebook = {
+        id: `notebook-${Date.now()}`,
+        name: notebookForm.name,
+        color: notebookForm.color
+      };
+      
+      await axios.post(`${API_BASE}/notebooks`, newNotebook);
+      setNotebookForm({ name: '', color: '#3b82f6' });
+      setShowNotebookForm(false);
+      fetchAllData();
+    } catch (error) {
+      console.error('Error creating notebook:', error);
+    }
+  };
