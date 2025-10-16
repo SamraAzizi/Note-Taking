@@ -25,3 +25,22 @@ function App() {
     name: '',
     color: '#3b82f6'
   });
+
+  const [notebookForm, setNotebookForm] = useState({
+    name: '',
+    color: '#3b82f6'
+  });
+
+  useEffect(() => {
+    fetchAllData();
+  }, []);
+
+  const fetchAllData = async () => {
+    try {
+      await Promise.all([
+        fetchNotebooks(),
+        fetchNotes(),
+        fetchStats(),
+        fetchTags()
+      ]);
+    } catch (error) {
