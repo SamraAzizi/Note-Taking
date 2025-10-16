@@ -74,3 +74,18 @@ function App() {
     try {
       const newNote = {
         id: `note-${Date.now()}`,
+
+        title: noteForm.title,
+        content: noteForm.content,
+        notebookId: noteForm.notebookId,
+        tags: noteForm.tags
+      };
+      
+      await axios.post(`${API_BASE}/notes`, newNote);
+      setNoteForm({ title: '', content: '', notebookId: '', tags: [] });
+      setShowNoteForm(false);
+      fetchAllData();
+    } catch (error) {
+      console.error('Error creating note:', error);
+    }
+  };
