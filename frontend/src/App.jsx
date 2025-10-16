@@ -44,3 +44,19 @@ function App() {
         fetchTags()
       ]);
     } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  const fetchNotebooks = async () => {
+    const response = await axios.get(`${API_BASE}/notebooks`);
+    setNotebooks(response.data);
+  };
+
+  const fetchNotes = async () => {
+    const response = await axios.get(`${API_BASE}/notes`);
+    setNotes(response.data);
+  };
+
+  const fetchStats = async () => {
+    const response = await axios.get(`${API_BASE}/stats`);
