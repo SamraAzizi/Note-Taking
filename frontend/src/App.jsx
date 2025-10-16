@@ -89,3 +89,19 @@ function App() {
       console.error('Error creating note:', error);
     }
   };
+
+  const deleteNote = async (noteId) => {
+    if (window.confirm('Are you sure you want to delete this note?')) {
+      try {
+        await axios.delete(`${API_BASE}/notes/${noteId}`);
+        fetchAllData();
+      } catch (error) {
+        console.error('Error deleting note:', error);
+      }
+    }
+  };
+
+  const toggleStar = async (noteId) => {
+    try {
+      await axios.post(`${API_BASE}/notes/${noteId}/star`);
+      fetchAllData();
