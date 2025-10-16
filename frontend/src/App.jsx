@@ -60,3 +60,17 @@ function App() {
 
   const fetchStats = async () => {
     const response = await axios.get(`${API_BASE}/stats`);
+    setStats(response.data);
+  };
+
+  const fetchTags = async () => {
+    const response = await axios.get(`${API_BASE}/tags`);
+    setTags(response.data);
+  };
+
+  // NOTE FUNCTIONS
+  const createNote = async (e) => {
+    e.preventDefault();
+    try {
+      const newNote = {
+        id: `note-${Date.now()}`,
