@@ -128,3 +128,13 @@ function App() {
       console.error('Error creating notebook:', error);
     }
   };
+  const deleteNotebook = async (notebookId) => {
+    if (window.confirm('Are you sure you want to delete this notebook? All notes in it will also be deleted.')) {
+      try {
+        await axios.delete(`${API_BASE}/notebooks/${notebookId}`);
+        fetchAllData();
+      } catch (error) {
+        console.error('Error deleting notebook:', error);
+      }
+    }
+  };
