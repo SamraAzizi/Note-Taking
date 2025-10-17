@@ -158,3 +158,19 @@ function App() {
     setSelectedNotebook('');
     fetchNotes();
   };
+
+  return (
+    <div className="container">
+      {/* HEADER */}
+      <div className="header">
+        <h1>📝 Notes App</h1>
+        <p>Your personal note-taking application</p>
+        
+        {/* SEARCH BAR */}
+        <div className="search-bar">
+          <input
+            type="text"
+            placeholder="Search notes..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
