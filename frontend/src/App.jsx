@@ -174,3 +174,19 @@ function App() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
+
+          <select 
+            value={selectedNotebook} 
+            onChange={(e) => setSelectedNotebook(e.target.value)}
+          >
+            <option value="">All Notebooks</option>
+            {notebooks.map(nb => (
+              <option key={nb.id} value={nb.id}>{nb.name}</option>
+            ))}
+          </select>
+          <button onClick={searchNotes}>Search</button>
+          <button onClick={clearSearch}>Clear</button>
+        </div>
+
+        {/* ACTION BUTTONS */}
+        <div className="action-buttons"></div>
