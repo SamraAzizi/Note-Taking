@@ -190,3 +190,18 @@ function App() {
 
         {/* ACTION BUTTONS */}
         <div className="action-buttons"></div>
+
+        <button 
+            className="btn-primary"
+            onClick={() => setShowNoteForm(true)}
+          >
+            + New Note
+          </button>
+          <button 
+            className="btn-secondary"
+            onClick={() => setShowNotebookForm(true)}
+          >
+            + New Notebook
+          </button>
+        </div>
+      </div>
