@@ -145,3 +145,16 @@ function App() {
       const params = new URLSearchParams();
       if (searchQuery) params.append('q', searchQuery);
       if (selectedNotebook) params.append('notebook', selectedNotebook);
+
+      const response = await axios.get(`${API_BASE}/search?${params}`);
+      setNotes(response.data);
+    } catch (error) {
+      console.error('Error searching notes:', error);
+    }
+  };
+
+  const clearSearch = () => {
+    setSearchQuery('');
+    setSelectedNotebook('');
+    fetchNotes();
+  };
