@@ -138,3 +138,10 @@ function App() {
       }
     }
   };
+
+  // SEARCH FUNCTION
+  const searchNotes = async () => {
+    try {
+      const params = new URLSearchParams();
+      if (searchQuery) params.append('q', searchQuery);
+      if (selectedNotebook) params.append('notebook', selectedNotebook);
