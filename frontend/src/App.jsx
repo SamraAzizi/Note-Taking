@@ -268,7 +268,40 @@ function App() {
                 <button 
                   className="btn-danger btn-small"
                   onClick={() => deleteNote(note.id)}
-                ></button>
+                >
+
+                   Delete
+                </button>
+              </div>
+            </div>
+            <p>{note.content.substring(0, 100)}...</p>
+            <div className="tags">
+              {note.tags && note.tags.map(tag => (
+                <span key={tag} className="tag">{tag}</span>
+              ))}
+            </div>
+            <p style={{ fontSize: '12px', color: '#6b7280' }}>
+              Updated: {new Date(note.updated).toLocaleDateString()}
+            </p>
+          </div>
+        ))}
+      </div>
+
+      {/* MODALS */}
+      {showNoteForm && (
+        <div className="modal">
+          <div className="modal-content">
+            <h3>Create New Note</h3>
+            <form onSubmit={createNote}>
+              <input
+                type="text"
+                placeholder="Note Title"
+                value={noteForm.title}
+                onChange={(e) => setNoteForm({...noteForm, title: e.target.value})}
+                required
+              />
+              <textarea
+                </button>
       
       
 
