@@ -206,7 +206,9 @@ function App() {
         </div>
       </div>
 
-       {/* STATISTICS */}
+      
+
+{/* STATISTICS */}
       {stats && (
         <div className="stats">
           <div className="stat-card">
@@ -221,7 +223,6 @@ function App() {
             <h3>Starred</h3>
             <p>{stats.starredNotes}</p>
           </div>
-
           <div className="stat-card">
             <h3>Tags</h3>
             <p>{stats.totalTags}</p>
@@ -233,4 +234,41 @@ function App() {
       <h2>Notebooks</h2>
       <div className="notes-grid">
         {notebooks.map(notebook => (
-          <div key={notebook.id} className="note-card" style={{ borderLeftColor: notebook.color }}></div>
+          <div key={notebook.id} className="note-card" style={{ borderLeftColor: notebook.color }}>
+            <div className="card-header">
+              <h3>{notebook.name}</h3>
+              <button 
+                className="btn-danger btn-small"
+                onClick={() => deleteNotebook(notebook.id)}
+              >
+                Delete
+              </button>
+            </div>
+            <p>{notebook.notes.length} notes</p>
+            <p style={{ color: notebook.color, fontSize: '12px' }}>
+              Created: {new Date(notebook.created).toLocaleDateString()}
+            </p>
+          </div>
+        ))}
+      </div>
+       {/* NOTES */}
+      <h2>Notes ({notes.length})</h2>
+      <div className="notes-grid">
+        {notes.map(note => (
+          <div key={note.id} className="note-card">
+            <div className="card-header">
+              <h3>{note.title}</h3>
+              <div>
+                <button 
+                  className="btn-small"
+                  onClick={() => toggleStar(note.id)}
+                >
+                  {note.starred ? '★' : '☆'}
+                </button>
+                <button 
+                  className="btn-danger btn-small"
+                  onClick={() => deleteNote(note.id)}
+                ></button>
+      
+      
+
