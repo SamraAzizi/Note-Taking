@@ -205,3 +205,19 @@ function App() {
           </button>
         </div>
       </div>
+
+       {/* STATISTICS */}
+      {stats && (
+        <div className="stats">
+          <div className="stat-card">
+            <h3>Notebooks</h3>
+            <p>{stats.totalNotebooks}</p>
+          </div>
+          <div className="stat-card">
+            <h3>Total Notes</h3>
+            <p>{stats.totalNotes}</p>
+          </div>
+          <div className="stat-card">
+            <h3>Starred</h3>
+            <p>{stats.starredNotes}</p>
+          </div>
