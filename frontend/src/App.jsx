@@ -221,3 +221,16 @@ function App() {
             <h3>Starred</h3>
             <p>{stats.starredNotes}</p>
           </div>
+
+          <div className="stat-card">
+            <h3>Tags</h3>
+            <p>{stats.totalTags}</p>
+          </div>
+        </div>
+      )}
+
+      {/* NOTEBOOKS */}
+      <h2>Notebooks</h2>
+      <div className="notes-grid">
+        {notebooks.map(notebook => (
+          <div key={notebook.id} className="note-card" style={{ borderLeftColor: notebook.color }}></div>
