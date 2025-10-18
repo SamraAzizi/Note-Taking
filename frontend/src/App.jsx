@@ -302,6 +302,45 @@ function App() {
               />
               <textarea
                 </button>
+
+                 placeholder="Note Content"
+                value={noteForm.content}
+                onChange={(e) => setNoteForm({...noteForm, content: e.target.value})}
+                rows="4"
+                required
+              />
+              <select
+                value={noteForm.notebookId}
+                onChange={(e) => setNoteForm({...noteForm, notebookId: e.target.value})}
+                required
+              >
+                <option value="">Select Notebook</option>
+                {notebooks.map(nb => (
+                  <option key={nb.id} value={nb.id}>{nb.name}</option>
+                ))}
+              </select>
+              <div className="form-actions">
+                <button type="submit" className="btn-primary">Create Note</button>
+                <button type="button" onClick={() => setShowNoteForm(false)}>Cancel</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {showNotebookForm && (
+        <div className="modal">
+          <div className="modal-content">
+            <h3>Create New Notebook</h3>
+            <form onSubmit={createNotebook}>
+              <input
+                type="text"
+                placeholder="Notebook Name"
+                value={notebookForm.name}
+                onChange={(e) => setNotebookForm({...notebookForm, name: e.target.value})}
+                required
+              />
+              <div className="color-picker"></div>
       
       
 
