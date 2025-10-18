@@ -26,11 +26,6 @@ function App() {
     color: '#3b82f6'
   });
 
-  const [notebookForm, setNotebookForm] = useState({
-    name: '',
-    color: '#3b82f6'
-  });
-
   useEffect(() => {
     fetchAllData();
   }, []);
@@ -74,7 +69,6 @@ function App() {
     try {
       const newNote = {
         id: `note-${Date.now()}`,
-
         title: noteForm.title,
         content: noteForm.content,
         notebookId: noteForm.notebookId,
@@ -105,7 +99,7 @@ function App() {
     try {
       await axios.post(`${API_BASE}/notes/${noteId}/star`);
       fetchAllData();
-      } catch (error) {
+    } catch (error) {
       console.error('Error toggling star:', error);
     }
   };
@@ -128,6 +122,7 @@ function App() {
       console.error('Error creating notebook:', error);
     }
   };
+
   const deleteNotebook = async (notebookId) => {
     if (window.confirm('Are you sure you want to delete this notebook? All notes in it will also be deleted.')) {
       try {
@@ -145,7 +140,7 @@ function App() {
       const params = new URLSearchParams();
       if (searchQuery) params.append('q', searchQuery);
       if (selectedNotebook) params.append('notebook', selectedNotebook);
-
+      
       const response = await axios.get(`${API_BASE}/search?${params}`);
       setNotes(response.data);
     } catch (error) {
@@ -174,7 +169,6 @@ function App() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
-
           <select 
             value={selectedNotebook} 
             onChange={(e) => setSelectedNotebook(e.target.value)}
@@ -189,9 +183,8 @@ function App() {
         </div>
 
         {/* ACTION BUTTONS */}
-        <div className="action-buttons"></div>
-
-        <button 
+        <div className="action-buttons">
+          <button 
             className="btn-primary"
             onClick={() => setShowNoteForm(true)}
           >
@@ -206,9 +199,7 @@ function App() {
         </div>
       </div>
 
-      
-
-{/* STATISTICS */}
+      {/* STATISTICS */}
       {stats && (
         <div className="stats">
           <div className="stat-card">
@@ -251,7 +242,8 @@ function App() {
           </div>
         ))}
       </div>
-       {/* NOTES */}
+
+      {/* NOTES */}
       <h2>Notes ({notes.length})</h2>
       <div className="notes-grid">
         {notes.map(note => (
@@ -269,8 +261,7 @@ function App() {
                   className="btn-danger btn-small"
                   onClick={() => deleteNote(note.id)}
                 >
-
-                   Delete
+                  Delete
                 </button>
               </div>
             </div>
@@ -301,9 +292,7 @@ function App() {
                 required
               />
               <textarea
-                </button>
-
-                 placeholder="Note Content"
+                placeholder="Note Content"
                 value={noteForm.content}
                 onChange={(e) => setNoteForm({...noteForm, content: e.target.value})}
                 rows="4"
@@ -340,7 +329,24 @@ function App() {
                 onChange={(e) => setNotebookForm({...notebookForm, name: e.target.value})}
                 required
               />
-              <div className="color-picker"></div>
-      
-      
+              <div className="color-picker">
+                <label>Color:</label>
+                <input
+                  type="color"
+                  value={notebookForm.color}
+                  onChange={(e) => setNotebookForm({...notebookForm, color: e.target.value})}
+                />
+              </div>
+              <div className="form-actions">
+                <button type="submit" className="btn-primary">Create Notebook</button>
+                <button type="button" onClick={() => setShowNotebookForm(false)}>Cancel</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
 
+export default App;
