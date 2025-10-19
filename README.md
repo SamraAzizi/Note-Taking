@@ -50,3 +50,46 @@ notetaking/
 ├── package.json # Node.js dependencies
 └── vite.config.js # Vite configuration
 ```
+
+
+## 🚀 Quick Start
+
+### Prerequisites
+- **Node.js** (v14 or higher)
+- **Python** (v3.7 or higher)
+- **npm** or **yarn** package manager
+
+### Installation & Running
+
+1. **Clone or download the project**
+   ```bash
+   cd notetaking
+   ```
+
+2. **Backend**
+    ```bash
+    cd backend
+    pip install -r requirements.txt
+    python app.py
+    ```
+    Backend will run on: `http://localhost:5000`
+
+2. **Frontend Setup (in a new terminal)**
+
+    ```bash
+    cd frontend
+    npm install
+    npm run dev
+    ```
+    Frontend will run on: `http://localhost:5173`
+
+4. **Access the Application**
+    Open your browser and go to: `http://localhost:5173`
+
+## How to Use
+
+### Creating Content
+
+1. Create a Notebook: Click "+ New Notebook", choose a name and color
+2. Create a Note: Click "+ New Note", add title, content, and select notebook
+3. Add Tags: Use the tags field to categorize notes (comma separated)
