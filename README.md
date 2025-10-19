@@ -93,3 +93,41 @@ notetaking/
 1. Create a Notebook: Click "+ New Notebook", choose a name and color
 2. Create a Note: Click "+ New Note", add title, content, and select notebook
 3. Add Tags: Use the tags field to categorize notes (comma separated)
+
+### Managing Notes
+- Click any note to view it in full detail
+- Click the star (☆) to mark as important
+- Click "Edit" to modify note content
+- Click "Delete" to remove notes
+
+### Managing Notebooks
+- Click any notebook to view all notes inside
+- Edit notebooks to change names or colors
+- Delete notebooks (this will also delete all notes inside)
+### Searching
+- Use the search bar to find notes by title or content
+- Filter by specific notebooks using the dropdown
+- Click "Clear" to reset search results
+
+## API Endpoints
+
+### Notes
+
+- `GET /api/notes` - Get all notes
+- `GET /api/notes/:id` - Get specific note
+- `POST /api/notes` - Create new note
+- `PUT /api/notes/:id` - Update note
+- `DELETE /api/notes/:id` - Delete note
+- `POST /api/notes/:id/star` - Toggle star status
+
+### Notebooks
+
+- `GET /api/notebooks` - Get all notebooks
+- `POST /api/notebooks` - Create new notebook
+- `PUT /api/notebooks/:id` - Update notebook
+- `DELETE /api/notebooks/:id` - Delete notebook
+
+### Utility
+- `GET /api/tags` - Get all tags
+- `GET /api/search` - Search notes (?q=query&notebook=id)
+- `GET /api/stats` - Get application statistics
