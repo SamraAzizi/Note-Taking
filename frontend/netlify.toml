@@ -6,3 +6,7 @@
   from = "/*"
   to = "/index.html"
   status = 200
+
+[build.environment]
+  # Your frontend environment variables
+  VITE_API_URL = "https://your-python-api.railway.app"
