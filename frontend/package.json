@@ -20,4 +20,13 @@
     "@vitejs/plugin-react": "^4.2.1",
     "vite": "^5.0.8"
   }
+  
+{
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build && mv dist public || move dist public",
+    "preview": "vite preview"
+  }
 }
+}
+
